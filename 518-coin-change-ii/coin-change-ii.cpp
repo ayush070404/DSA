@@ -2,9 +2,9 @@ class Solution {
 public:
 
     int solve(int ind, vector<int> &arr, int val, vector<vector<int>> &dp) {
-        if (ind == 0) {
-            // Base case: only one denomination available
-            return (val % arr[0] == 0) ? 1 : 0;
+         if (ind == 0) {
+            if (val % arr[0] == 0) return 1;  // Only one way using arr[0] multiple times
+            return 0;
         }
 
         if (dp[ind][val] != -1) return dp[ind][val];
