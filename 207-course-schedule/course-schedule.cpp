@@ -5,7 +5,7 @@ public:
         for(auto edge : prerequisites){
             int u = edge[0];
             int v = edge[1];
-            adj[v].push_back(u);
+            adj[u].push_back(v);
         }
 
         vector<int> indegree(V, 0);
