@@ -1,43 +1,41 @@
 class Solution {
 public:
-    bool dfsCheck(int node, vector<vector<int>> &adj, vector<int> &vis, vector<int> &pathVis, vector<int> &order) {
-        vis[node] = 1;
-        pathVis[node] = 1;
-
-        for (auto neighbor : adj[node]) {
-            if (!vis[neighbor]) {
-                if (dfsCheck(neighbor, adj, vis, pathVis, order))
-                    return true;
-            }
-            else if (pathVis[neighbor]) {
-                return true; // cycle detected
-            }
-        }
-
-        pathVis[node] = 0;
-        order.push_back(node); // add to order after processing all dependencies
-        return false;
-    }
-
-    vector<int> findOrder(int V, vector<vector<int>> &edges) {
+    vector<int> findOrder(int V, vector<vector<int>>& prerequisites) {
         vector<vector<int>> adj(V);
-        for (auto &edge : edges) {
-            int u = edge[0]; // destination
-            int v = edge[1]; // prerequisite
-            adj[v].push_back(u); // edge: v → u
+        for(auto edge : prerequisites){
+            int u = edge[0];
+            int v = edge[1];
+            adj[v].push_back(u);
         }
 
-        vector<int> vis(V, 0), pathVis(V, 0), order;
-
-        for (int i = 0; i < V; i++) {
-            if (!vis[i]) {
-                if (dfsCheck(i, adj, vis, pathVis, order)) {
-                    return {}; // cycle detected → no valid order
-                }
+        vector<int> indegree(V, 0);
+        
+        for(int i = 0 ; i< V; i++){
+            for(auto it: adj[i]){
+                indegree[it]++;
             }
         }
-
-        reverse(order.begin(), order.end());
-        return order;
+        queue<int> q;
+        for(int i =0 ; i<V; i++){
+             if(indegree[i] == 0){
+                 q.push(i);
+             }
+        }
+        
+        vector<int> topo;
+        
+        while(!q.empty()){
+            int node = q.front();
+            q.pop();
+            topo.push_back(node);
+            
+            for(auto it : adj[node]){
+                indegree[it]--;
+                if(indegree[it] == 0) q.push(it);
+            }
+        }
+        
+    if(topo.size() == V) return topo;
+    else return {};
     }
 };
