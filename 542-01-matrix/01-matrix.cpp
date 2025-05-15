@@ -14,7 +14,7 @@ public:
                 if( mat[row][col] == 0){
                     q.push({{row, col}, 0});
                     vis[row][col] = 1;
-                    // ans[row][col] =0;
+                   
                 }
             }
         }
