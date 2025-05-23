@@ -25,7 +25,7 @@ class Solution {
                   result += st.top();
                   st.pop();
               }
-              if(!st.empty()) st.pop(); // Remove '('
+            st.pop(); // Remove '('
           }
           else {
               while(!st.empty() && prec(c) <= prec(st.top())) {
