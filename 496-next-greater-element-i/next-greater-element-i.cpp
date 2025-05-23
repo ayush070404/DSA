@@ -1,24 +1,25 @@
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-        int n = nums1.size();
-        int m = nums2.size();
-        vector<int> ans(n ,-1);
+        unordered_map<int, int> nge;  // map from num -> next greater
+        stack<int> st;
 
-        for(int i = 0 ; i< n ; i++){
-            int num = nums1[i];
-            for(int j = 0 ; j< m; j++){
-                if(nums2[j] == num ) {
-                    for(int ind = j+1 ; ind< m ; ind++){
-                        if(nums2[ind]> num){
-                            ans[i] =nums2[ind];
-                            break;
-                        }
-                    }
-                }
+        // Traverse nums2 from right to left to compute NGE
+        for (int i = nums2.size() - 1; i >= 0; i--) {
+            int num = nums2[i];
+            while (!st.empty() && st.top() <= num) {
+                st.pop();
             }
-
+            nge[num] = st.empty() ? -1 : st.top();
+            st.push(num);
         }
-    return ans;
+
+        // Use the map to build the result for nums1
+        vector<int> ans;
+        for (int num : nums1) {
+            ans.push_back(nge[num]);
+        }
+
+        return ans;
     }
 };
