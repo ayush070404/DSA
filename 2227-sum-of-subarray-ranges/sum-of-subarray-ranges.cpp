@@ -11,7 +11,7 @@ public:
                 mini = min(mini , nums[j]);
                 maxi = max(maxi , nums[j]);
                 sum += (maxi -mini);
-                continue;
+
             }
         }
     return sum;
