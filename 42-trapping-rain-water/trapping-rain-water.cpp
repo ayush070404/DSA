@@ -8,9 +8,9 @@ public:
         vector<int> suffixMax(n);
         
         prefixMax[0] = height[0];
-        for (int i = 1; i < n; i++) {
-            prefixMax[i] = max(prefixMax[i - 1], height[i]);
-        }
+        // for (int i = 1; i < n; i++) {
+            
+        // }
 
         suffixMax[n - 1] = height[n - 1];
         for (int i = n - 2; i >= 0; i--) {
@@ -19,6 +19,7 @@ public:
 
         int totalWater = 0;
         for (int i = 1; i < n; i++) {
+            prefixMax[i] = max(prefixMax[i - 1], height[i]);
             totalWater += min(prefixMax[i], suffixMax[i]) - height[i];
         }
 
