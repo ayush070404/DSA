@@ -18,7 +18,7 @@ public:
         }
 
         int totalWater = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             totalWater += min(prefixMax[i], suffixMax[i]) - height[i];
         }
 
