@@ -3,30 +3,27 @@ public:
     void setZeroes(vector<vector<int>>& matrix) {
         int n = matrix.size();
         int m = matrix[0].size();
+        bool col0 = false;
 
-        vector<pair<int , int>> zeroes;
-
-        for (int row = 0 ; row< n ; row++){
-            for(int col  = 0 ; col < m ; col++){
-
-                if(matrix[row][col] == 0){
-                    zeroes.push_back({row, col});
+        // First pass: use first row/col as markers
+        for (int i = 0; i < n; i++) {
+            if (matrix[i][0] == 0) col0 = true;
+            for (int j = 1; j < m; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
                 }
             }
         }
 
-        while(!zeroes.empty()){
-            int row = zeroes.back().first;
-            int col = zeroes.back().second;
-            zeroes.pop_back();
-            for(int j = 0 ; j< m ; j++ ){
-                matrix[row][j] = 0;
+        // Second pass: update cells based on markers (reverse order to avoid early overwrite)
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = m - 1; j >= 1; j--) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
             }
-            for(int i = 0 ; i< n ; i++ ){
-                matrix[i][col] = 0;
-            }
+            if (col0) matrix[i][0] = 0;
         }
-
-
     }
 };
