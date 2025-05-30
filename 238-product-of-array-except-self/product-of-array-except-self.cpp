@@ -12,7 +12,7 @@ public:
 
         int right = 1;
         for (int i = n - 1; i >= 0; i--) {
-            answer[i] *= right;
+            answer[i] *= right;  // Multiplying accumulated left product with right
             right *= nums[i];
         }
 
