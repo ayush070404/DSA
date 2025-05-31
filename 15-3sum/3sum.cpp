@@ -19,13 +19,13 @@ public:
                 int sum = left + mid + right;
 
                 if (sum == 0) {
-                    ans.push_back({left, mid, right});
+                    ans.push_back({left, mid, right});  /// how to push triplets;
 
                     // Skip duplicates for nums[l] and nums[r]
                     while (l < r && nums[l] == nums[l + 1]) l++;
                     while (l < r && nums[r] == nums[r - 1]) r--;
 
-                    l++;
+                    // l++;
                     r--;
                 }
                 else if (sum < 0) {
