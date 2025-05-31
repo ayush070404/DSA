@@ -25,7 +25,6 @@ public:
                     while (l < r && nums[l] == nums[l + 1]) l++;
                     while (l < r && nums[r] == nums[r - 1]) r--;
 
-                    // l++;
                     r--;
                 }
                 else if (sum < 0) {
@@ -35,6 +34,7 @@ public:
                     r--;  // Move right backward to decrease sum
                 }
             }
+            l++;
         }
 
         return ans;
