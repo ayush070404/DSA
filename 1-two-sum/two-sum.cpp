@@ -1,20 +1,18 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        int n = nums.size();
-        vector<int> ans;
-        for(int i = 0 ; i <n ; i++){
+        unordered_map<int, int> numMap;
+ 
+        for (int i = 0; i < nums.size(); i++) {
+            int complement = target - nums[i];
 
-            int num1 = nums[i];
-
-            for(int j = i+1 ; j< n ; j++){
-                if( nums[j] == target - num1){
-                    ans.push_back(i);
-                    ans.push_back(j);
-                }
+            if (numMap.find(complement) != numMap.end()) {
+                return {numMap[complement], i}; // Found a valid pair
             }
 
+            numMap[nums[i]] = i; // Store index of current number
         }
-    return ans;
+
+        return {}; // Return empty vector if no pair is found
     }
 };
