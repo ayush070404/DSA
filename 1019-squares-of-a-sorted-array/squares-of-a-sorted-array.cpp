@@ -8,11 +8,13 @@ public:
 
         while (l <= r) {
             if (abs(nums[l]) > abs(nums[r])) {
-                ans[pos--] = nums[l] * nums[l];
+                ans[pos] = nums[l] * nums[l];
                 l++;
+                pos--;
             } else {
-                ans[pos--] = nums[r] * nums[r];
+                ans[pos] = nums[r] * nums[r];
                 r--;
+                pos--;
             }
         }
 
