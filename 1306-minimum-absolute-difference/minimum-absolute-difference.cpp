@@ -1,24 +1,24 @@
 class Solution {
 public:
     vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
-        sort(arr.begin(), arr.end());  // Required for adjacent difference
-
+        int n = arr.size();
+        sort(arr.begin(), arr.end());
         int minDiff = INT_MAX;
 
-        // First Pass: Find minimum absolute difference
-        for (int i = 1; i < arr.size(); i++) {
-            minDiff = min(minDiff, arr[i] - arr[i - 1]);
-        }
+        vector<vector<int>> ans;
 
-        vector<vector<int>> result;
+        for(int i = 1 ; i <n ; i++){
+            int diff = arr[i] - arr[i-1];
 
-        // Second Pass: Collect pairs with that difference
-        for (int i = 1; i < arr.size(); i++) {
-            if (arr[i] - arr[i - 1] == minDiff) {
-                result.push_back({arr[i - 1], arr[i]});
+            if(diff < minDiff){
+                minDiff = diff;
+                ans.clear();
+                ans.push_back({arr[i-1], arr[i]});
+            }
+            else if(diff == minDiff){
+                ans.push_back({arr[i-1], arr[i]});
             }
         }
-
-        return result;
+    return ans;
     }
 };
