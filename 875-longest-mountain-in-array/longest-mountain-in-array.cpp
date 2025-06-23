@@ -25,7 +25,7 @@ public:
                 length = max(length, currLen);
 
                 // Move i to r to skip checked region
-                // i = r;
+                i = r;
             }
         }
 
