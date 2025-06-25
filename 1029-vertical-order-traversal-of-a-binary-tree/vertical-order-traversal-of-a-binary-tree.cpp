@@ -25,8 +25,13 @@ public:
         q.push({root, 0, 0});
 
         while (!q.empty()) {
-            auto [currNode, hd, lvl] = q.front();
+            auto front = q.front(); // get the front tuple
             q.pop();
+
+            TreeNode* currNode = get<0>(front); // node
+            int hd = get<1>(front);             // horizontal distance
+            int lvl = get<2>(front);            // level
+
 
             // Insert the current node's value into the map
             nodes[hd][lvl].insert(currNode->val);
@@ -45,13 +50,18 @@ public:
         // Now collect the result from the map in sorted order
         vector<vector<int>> result;
 
-        // Traverse the map from leftmost HD to rightmost HD
-        for (auto it : nodes) {
-            vector<int> col;
-            for (auto lvlPair : it.second) {
-                col.insert(col.end(), lvlPair.second.begin(), lvlPair.second.end());
+        // Traverse from leftmost HD to rightmost
+        for (auto& [hd, levels] : nodes) {
+            vector<int> column;
+
+            // Top to bottom at each HD
+            for (auto& [level, values] : levels) {
+                for (int val : values) {
+                    column.push_back(val); // simpler than insert
+                }
             }
-            result.push_back(col);
+
+            result.push_back(column);
         }
 
         return result;
