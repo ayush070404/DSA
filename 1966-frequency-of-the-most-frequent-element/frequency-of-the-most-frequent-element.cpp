@@ -1,23 +1,25 @@
 class Solution {
 public:
     int maxFrequency(vector<int>& nums, int k) {
+        int n = nums.size();
         sort(nums.begin(), nums.end());
-        long left = 0, right = 0;
-        long long windowSum = 0;
-        long maxElement = 0;
-        while(right < nums.size()){
+        long l = 0, r = 0;
+        long long sum = 0;
+        long long maxfreq = 0;
 
-            windowSum += nums[right];
+        while (r < n) {
+            sum += nums[r];
 
-            while( nums[right]*(right -left +1) - windowSum > k){
-                windowSum -= nums[left];
-                left++;
+            while ((long long)nums[r] * (r - l + 1) - sum > k) {
+                sum -= nums[l];
+                l++;
             }
 
-            maxElement = max(maxElement , right -left +1);
-            right++;
+            maxfreq = max(maxfreq, (long long)(r - l + 1)); // ✅ type match
+            r++;
         }
 
-    return maxElement;   
+        return (int)maxfreq;  // cast back to int if required by the problem
     }
 };
+
