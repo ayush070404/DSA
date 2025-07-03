@@ -5,7 +5,8 @@ public:
         vector <int> arr;
         arr.push_back(nums[0]);
         for(int i=1; i<n ; i++){
-            if(nums[i] != arr.back()){
+            if(nums[i-1] == nums[i]) continue;
+            else{
                 arr.push_back(nums[i]);
             }
         }
