@@ -4,7 +4,7 @@ class Solution {
         // code here
         int n = arr.size();
         
-        unordered_map<int , int>prefixSum;
+        unordered_map<int , int>prefixSum;  // key , value(frequency)
         int sum = 0, len = 0;
         
         for(int i=0 ; i< n ;i++){
