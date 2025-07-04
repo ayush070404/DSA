@@ -2,16 +2,15 @@ class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
         int n = nums.size();
-        unordered_map<int, int> freq;
+        unordered_map <int, int> map;
         vector<int> ans;
+        for(int num: nums){
+            map[num]++;
 
-        for (int num : nums) {
-            freq[num]++;
-            if (freq[num] == (n / 3) + 1) { // Only add when it crosses the threshold
+            if(map[num]== n/3 +1){
                 ans.push_back(num);
             }
         }
-
-        return ans;
+    return ans;
     }
 };
