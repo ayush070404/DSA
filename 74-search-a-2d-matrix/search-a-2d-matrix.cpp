@@ -11,7 +11,7 @@ public:
         int low = 0 , high = n*m-1;
         while(low <= high){
             int mid = (low + high)/2;
-            int row = mid/m , col = mid% m;
+            int row = mid/m , col = mid% m;  // finding row and column in flatened 1D array 
             if(matrix[row][col]== target) return true;
 
             if(matrix[row][col] < target) low = mid +1 ;
