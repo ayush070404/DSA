@@ -1,20 +1,20 @@
 class Solution {
 public:
     int findContentChildren(vector<int>& g, vector<int>& s) {
-        sort(g.begin(), g.end());  // Sort greed factors
-        sort(s.begin(), s.end());  // Sort cookies
+        sort(g.begin(), g.end());
+        sort(s.begin(), s.end());
+        
+        int i = 0; // child index
+        int j = 0; // cookie index
+        int n = g.size(), m = s.size();
 
-        int cnt = 0;
-        int i = 0, j = 0;
-
-        while (i < g.size() && j < s.size()) {
-            if (g[i] <= s[j]) { // ✅ Corrected condition
-                cnt++;  
-                i++;  // Move to next child
+        while(i < n && j < m) {
+            if(g[i] <= s[j]) {
+                i++; // child is content
             }
-            j++;  // Move to next cookie
+            j++; // move to next cookie either way
         }
-
-        return cnt;
+        
+        return i; // number of content children
     }
 };
