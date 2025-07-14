@@ -1,24 +1,31 @@
 class Solution {
 public:
-    int solve(int ind, int target, vector<int>& nums, unordered_map<string, int>& dp) {
-        string key = to_string(ind) + "_" + to_string(target);
-        if (dp.count(key)) return dp[key];
-
+    int count_subsets(int ind, int target, vector<int> &nums, vector<vector<int>> &dp) {
         if (ind == 0) {
-            int cnt = 0;
-            if (nums[0] == target) cnt++;
-            if (-nums[0] == target) cnt++;
-            return dp[key] = cnt;
+            if (target == 0 && nums[0] == 0) return 2;
+            if (target == 0 || target == nums[0]) return 1;
+            return 0;
         }
 
-        int take = solve(ind - 1, target - nums[ind], nums, dp);
-        int not_take = solve(ind - 1, target + nums[ind], nums, dp);
+        if (dp[ind][target] != -1) return dp[ind][target];
 
-        return dp[key] = take + not_take;
+        int not_pick = count_subsets(ind - 1, target, nums, dp);
+        int pick = 0;
+        if (nums[ind] <= target)
+            pick = count_subsets(ind - 1, target - nums[ind], nums, dp);
+
+        return dp[ind][target] = pick + not_pick;
     }
 
     int findTargetSumWays(vector<int>& nums, int target) {
-        unordered_map<string, int> dp;
-        return solve(nums.size() - 1, target, nums, dp);
+        int total_sum = accumulate(nums.begin(), nums.end(), 0);
+
+        // Edge case: target is too large or invalid
+        if ((target + total_sum) % 2 != 0 || (target + total_sum) < 0) return 0;
+
+        int subset_sum = (target + total_sum) / 2;
+        vector<vector<int>> dp(nums.size(), vector<int>(subset_sum + 1, -1));
+
+        return count_subsets(nums.size() - 1, subset_sum, nums, dp);
     }
 };
