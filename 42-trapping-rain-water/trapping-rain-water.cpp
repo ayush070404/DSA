@@ -19,7 +19,10 @@ public:
 
         int totalWater = 0;
         for (int i = 1; i < n; i++) {
-            totalWater += min(prefixMax[i], suffixMax[i]) - height[i];
+            int leftmax = prefixMax[i], rightmax = suffixMax[i];
+            if(height[i]< leftmax && height[i]<rightmax){
+                totalWater += min(leftmax, rightmax) - height[i];
+            }
         }
 
         return totalWater;
