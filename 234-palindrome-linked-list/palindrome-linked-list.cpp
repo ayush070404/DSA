@@ -42,7 +42,7 @@ public:
 
         while(second!= NULL){
             if(first-> val != second->val){
-                reverseLinkedList(newHead);
+                // reverseLinkedList(newHead);
                 return false;
             }
             second = second->next;
