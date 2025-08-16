@@ -16,7 +16,6 @@ public:
             return result;
         }
 
-        // Recursive function
         string countAndSay(int n) {
             // Base case
             if (n == 1) return "1";
